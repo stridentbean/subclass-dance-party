@@ -27,6 +27,7 @@ body, a:link, a:visited, a:active{
 }
 .green{
   border:10px solid green;
+  border-radius:0px;
 }
 .smiley{
   position:absolute;

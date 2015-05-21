@@ -28,6 +28,7 @@ $(document).ready(function(){
       Math.random() * 1000
     );
     $('.danceFloor').append(dancer.$node);
+    window.dancers.push(dancer);
     var runMe = function(){
       for(i = 0; i < 100; i++){
         var dancer2 = new dancerMakerFunction(
@@ -36,9 +37,24 @@ $(document).ready(function(){
           Math.random() * 1000
         );
         $('.danceFloor').append(dancer2.$node);
+        window.dancers.push(dancer);
       }
     }
-    runMe();
+     //runMe();
   });
+
+  $(".lineUpButton").on("click", function(event){
+    var top = 0;
+    var left = 0;
+    for(var i=0;i< window.dancers.length; i++) {
+      window.dancers[i].setPosition(top, left);
+      left += 50;
+      if(left > $(".danceFloor").width()){
+        top += 50;
+        left = 0;
+      }
+    }
+  });
+
 });
 
