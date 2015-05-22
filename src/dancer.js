@@ -8,17 +8,7 @@ var makeDancer = function(top, left, timeBetweenSteps, height, width){
   this.dancerHeight = height || 20;
 
   //directions
-  if(Math.random() > 0.5) {
-    this.vertical = 'down';
-  } else {
-    this.vertical = 'up';
-  }
-
-  if(Math.random() > 0.5) {
-    this.horizontal = 'right';
-  } else {
-    this.horizontal = 'left';
-  }
+  this.randomDirection();
 
   if(top > this.dancerHeight){
     this.top = top - this.dancerHeight;
@@ -35,10 +25,64 @@ var makeDancer = function(top, left, timeBetweenSteps, height, width){
   // this one sets the position to some random default point within the body
   this.setPosition(this.top, this.left);
   this.step();
+
+  var context = this;
+  $(this.$node).on("click", function(event){
+    var styleSettings = {
+      border:"10px solid blue"
+    };
+    $(this).css(styleSettings);
+    debugger;
+    context.randomDirection();
+  });
 };
+
+makeDancer.prototype.randomDirection = function(){
+  if(Math.random() > 0.5) {
+    this.vertical = 'down';
+  } else {
+    this.vertical = 'up';
+  }
+
+  if(Math.random() > 0.5) {
+    this.horizontal = 'right';
+  } else {
+    this.horizontal = 'left';
+  }
+};
+
+makeDancer.prototype.reverseDirection = function() {
+  if(this.vertical === 'down') {
+    this.vertical = 'up';
+
+  } else {
+    this.vertical = 'down';
+  }
+
+  if(this.horizontal === 'right') {
+    this.horizontal = 'left';
+
+  } else {
+    this.horizontal = 'right';
+  }
+}
 
 makeDancer.prototype.step = function(){
   var speed = 20;
+
+
+  // var dancers = $(".dancer");
+  // for(var i = 0; i < dancers.length; i++) {
+  //     debugger;
+  //   if(dancers[i].css(top) === this.top && dancers[i].css(left) === this.left) {
+  //     if(dancers[i] !== this.$node){
+  //       this.reverseDirection();
+  //       dancers[i].reverseDirection();
+  //     }
+  //   }
+  // }
+
+
   if(this.top > $(".danceFloor").height() - this.dancerHeight - speed) {
     this.vertical = 'up';
   }
